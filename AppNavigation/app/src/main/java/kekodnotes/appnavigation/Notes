@@ -1,0 +1,109 @@
+
+--------------------------------------------------Principles of navigation --------------------------------------------------------
+
+Aşağıdaki prensipler manuel olarak navigation'ı yönetiyor olsak bile takip edilmelidir.
+
+1- Fixed start destination
+- Her uygulamanın standart ve değişmez bir giriş noktası bulunması gerekiyor. Birden fazla giriş noktası
+olan birden fazla launch edilen activity'e sahip uygulamalar yazmamalıyız.
+
+- Farklı durumlarda kullanıcının gördüğü farklı start destionationlarımız olabilir.
+Mesela oturumu olmayan kullanıcının register ekranını görürken, oturumu olan kullanıcının login ekranını görmesi gibi.
+Bu ekranları uygulamanın başlangıç noktası gibi düşünmemeliyiz.
+Cünkü bu ekranlar kullananın spesifik bazı durumlar geçerli ise göreceği ekranlar olacak.
+
+
+2-Navigation state is represented as a stack of destinations
+
+- Navigation component'i ya da manuel yönlendirmeyi kullanarak ilerledigimiz her bir destination (genel olarak)
+uygulamanın task'ı üzerinde bir stack formatında bulunur. Bu stack LIFO seklinde calısır. "Last In First Out"
+son eklenen destination geri tusuna basıldığında ilk ekrandan ayrılacak destination olacaktır.
+Bu stack kavramının genel adı android dünyasında "backstack" olarak isimlendirilir.
+Navigation Component'le bu backstack içerisindeki destination'ları yönetebiliriz.
+
+
+3-Up and Back are identical within your app's task
+
+- Kullanıcı destinationlar üzerinden ileri doğru hareket ettirirken backstack kullanıldığını söylemiştik.
+Bu backstack üzernde geriye doğru hareket etmemizi sağlayan temelde 2 yapı mevcut. AppBar (actionbar) üzerinde bulunan geri iconu
+ve fiziksel cihazın üzerinde bulunan "back" butonu. Yeni bazı işletim sistemlerinde "back gesture" dedgimiz
+bir geri yönlendirme hareketi de mevcuttur. Tüm bu geri yönlendirmeler diğerleri ile aynı amaca hizmet etmeliler.
+AppBar üzerinde bulunan geri tuşu ile cihaz üzerinde bulunan geri tuşu farklı şekilde çalışmamalıdır.
+
+
+4-The Up button never exits your app
+
+- Eğer appbar üzerinde bulunan geri iconu bir destination'da bulunmuyorsa, kullanıcı bu destination'ın start destination olduğunu
+düşünecektir. Bu destination'Dan sonra cihaz geri tuşuna basması veya back gesture kullanması kullanıcıyı uygulamadan çıkaracaktır.
+Bu sebeple, start destination olmayan bir ekrandayken (farklı bir ekrana geçiş yaptınızda) bu ekran mutlaka appbar back iconu içermelidir.
+Yoksa kullanıcı bu destination'ı yanlış yorumlayacaktır. Hatta nasıl geri döneceğini anlamayabilir bile.
+
+BottomSheetDialogFragment gibi fullscreen olarak da kullanilabilen dialog'larda geri tuşu yerine genellikle sağda X iconu görebilirsiniz.
+Bu X iconu ile stackte yine geriye gidebiliriz. Bu ayrımın yapılma sebebi ekran açılış ve kapanış animasyonlarının activity,
+fragment'larda benzer, dialog'larda ise farklı oluşundan ötürüdür.
+
+
+5- Deep linking simulates manual navigation
+
+- Eğer deeplink'ler yardımı ile uygulamanın destionation'ları arasında yönlendirme yapıyorsak, bu sırada uygulamanın
+task'ı üzerinde var olan bir backstack varsa, bu var olan backstack, deeplink kullanarak geçtigimiz ekranların sahip olacağı backstack ile yer değiştirebilir.
+
+Yani;
+
+A -> B -> C ekranlarnda geçiş yaptık, Backstack'imiz de bu ekranlar bulunuyor. Uygulamayı home tuşuna basarak arka plana aldık.
+
+Eğer kullanıcı bu noktadan sonra deeplink yardımı ile D ekranına yönleniyorsa, mevcut backstack deeplink backstack'i ile yer degistirecek
+ve basitçe şöyle görünecektir.
+
+A -> D
+
+Bu deeplink backstack'inin "synthetic back stack" şeklinde bir isimlendirildiğini duyarsınız.
+
+Bunun yanında dikkat etmemiz gereken bir nokta şu ki; kullanıcı bir deppkink ile detay bir ekrana yönlendiğinde, eğer manuel olarak
+o ekrana giderken hangi ekranlardan geçiyorsai deeplink ile direkt yaptığı yönlendirmeden sonra geri tuşuna basarak, manuel yönlensi idi,
+geçeceği ekranlardan geriye doğru dönmeyi bekleyecektir.
+
+Yani bir kullanıcıyı "Kredi Kartı Başvur" ekranına deeplink ile yönlendiriyorsak back stuşuna bastığında kullanıcıyı uygulamadan çıkartmamalıyız.
+Örnek olarak ya Dashboard gibi bir ekrana ya da "Başvur Menusu Ekranına" yönlendirmemiz gerekmektedir. Özetle kullancıı manuel olarak o ekrana hangi ekranları
+kullanarak gidiyorsa, yine deeplink o ekranları stack'e alarak ilgili detay ekranını açması lazım ki geri tuşu bu ekranları kullanarak yine geriye dönebilsin
+ve uygulama tutarlılığı bozulmasın.
+
+/-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/
+
+    Navigation;
+kullanıcıların uygulamanızdaki farklı içerik parçaları arasında gezinmesini, içeri girmesini ve geri çıkmasını sağlayan etkileşimleri ifade eder.
+Android Jetpack'in Navigasyon bileşeni, Navigasyon kütüphanesini, Safe Args Gradle eklentisini ve uygulama navigasyonunu uygulamanıza yardımcı olacak araçları içerir.
+Navigasyon bileşeni, basit düğme tıklamalarından uygulama çubukları ve navigasyon çekmecesi gibi daha karmaşık modellere kadar çeşitli navigasyon kullanım durumlarını ele alır.
+
+
+!!Önemli->Navigation component Avantajlar ve özellikler;
+Navigasyon bileşeni, aşağıdakiler de dahil olmak üzere bir dizi başka avantaj ve özellik sağlar: / Jetpack Navigation'ın bize sağladığı özellikler ne:
+
+- Animasyonlar ve geçişler: Standartlaştırılmış animasyon ve geçiş kaynakları sağlar.
+Yani, ekranlar arasında geçiş yaparken güzel ve tutarlı animasyonlar kullanmanıza yardımcı olur.
+
+- Derin bağlantılar (Deep linking): Kullanıcıyı doğrudan belirli bir ekrana yönlendiren, götüren derin bağlantıları uygular ve yönetir.
+Örneğin, bir bildirimden veya bir web bağlantısından uygulamanın belirli bir sayfasına doğrudan gitmesini sağlar.
+
+- UI desenleri: Navigation drawers ve alt navigasyon (Bottom navigation) gibi arayüz desenlerini minimal ek çalışma ile destekler.
+Yani, bu tür standart kullanıcı arayüzlerini kolayca ekleyebilirsin.
+
+- Tür güvenliği: Hedefler arasında veri aktarımı yaparken tür güvenliği desteği sağlar.
+Bu, bir ekrandan diğerine veri gönderirken veri türünün doğru olduğundan emin olmanıza yardımcı olur.
+
+- ViewModel desteği: Bir ViewModel'in bir navigasyon grafiğine (navigation graph) kapsamlanmasını sağlar,
+böylece grafikteki hedefler arasında UI ile ilgili verileri paylaşabilirsin. Yani, belirli ekranlar arasında veri paylaşımı daha kolay hale gelir.
+
+- Fragment işlemleri: Fragment işlemlerini tam olarak destekler ve yönetir. Fragment'lar arasında geçiş yaparken tüm karmaşık işleri senin yerine halleder.
+
+- Geri ve yukarı: Geri ve yukarı hareketlerini varsayılan olarak doğru bir şekilde yönetir.
+Yani, kullanıcı geri düğmesine bastığında veya yukarı navigasyonunu kullandığında doğru ekrana dönecektir.
+
+
+/-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/
+
+Android uygulama geliştirirken fragmentlar arası geçişler sırasında veri taşımak genellikle karşılaşılan bir ihtiyaçtır.
+Navigation Component bu ihtiyacı “Safe Args” özelliğiyle karşılar. Bu özellik fragmentlar arası geçiş yaparken veri aktarımını güvenli ve tip güvenli bir şekilde gerçekleştirmeyi sağlar.
+Navigation Component genellikle UI elemanları ile veri paylaşımını kolaylaştırmak için argument ve deep link özellikleri sunar. Bu sayede fragmentlar arasında veri iletimini sağlayabilirsiniz.
+
+Safe Args’i projenizde kullanabilmek için öncelikle gerekli eklentileri ve kütüphaneleri eklemeniz gerekmektedir
