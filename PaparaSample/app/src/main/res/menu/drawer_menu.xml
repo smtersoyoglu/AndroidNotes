@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/notificationFragment"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notification" />
+
+    <item
+        android:id="@+id/searchAtmFragment"
+        android:title="Search ATM"
+        android:icon="@drawable/ic_location" />
+
+    <item
+        android:id="@+id/withdrawDepositFragment"
+        android:title="Withdraw/Deposit"
+        android:icon="@drawable/ic_withdep" />
+    <item
+        android:id="@+id/splitBillFragment"
+        android:title="Split Bill"
+        android:icon="@drawable/ic_divide" />
+
+    <item
+        android:id="@+id/paparaEduFragment"
+        android:title="Papara Edu"
+        android:icon="@drawable/ic_book" />
+
+    <item
+        android:id="@+id/insuranceFragment"
+        android:title="Insurance"
+        android:icon="@drawable/ic_security" />
+    <item
+        android:id="@+id/cashbackFragment"
+        android:title="Cashback"
+        android:icon="@drawable/ic_p" />
+
+    <item
+        android:id="@+id/streamerAccountFragment"
+        android:title="Streamer Account"
+        android:icon="@drawable/ic_stream" />
+
+
+</menu>

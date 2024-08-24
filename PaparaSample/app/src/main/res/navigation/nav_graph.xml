@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.smtersoyoglu.paparasample.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <dialog
+        android:id="@+id/qrDialogFragment"
+        android:name="com.smtersoyoglu.paparasample.QRDialogFragment"
+        android:label="fragment_q_r_dialog"
+        tools:layout="@layout/fragment_q_r_dialog" />
+    <dialog
+        android:id="@+id/moneyTransferDialogFragment"
+        android:name="com.smtersoyoglu.paparasample.MoneyTransferDialogFragment"
+        android:label="fragment_money_transfer_dialog"
+        tools:layout="@layout/fragment_money_transfer_dialog" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.smtersoyoglu.paparasample.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/paparaCardFragment"
+        android:name="com.smtersoyoglu.paparasample.PaparaCardFragment"
+        android:label="fragment_papara_card"
+        tools:layout="@layout/fragment_papara_card" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.smtersoyoglu.paparasample.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/searchAtmFragment"
+        android:name="com.smtersoyoglu.paparasample.SearchAtmFragment"
+        android:label="fragment_search_atm"
+        tools:layout="@layout/fragment_search_atm" />
+    <fragment
+        android:id="@+id/withdrawDepositFragment"
+        android:name="com.smtersoyoglu.paparasample.WithdrawDepositFragment"
+        android:label="fragment_withdraw_deposit"
+        tools:layout="@layout/fragment_withdraw_deposit" />
+    <fragment
+        android:id="@+id/splitBillFragment"
+        android:name="com.smtersoyoglu.paparasample.SplitBillFragment"
+        android:label="fragment_split_bill"
+        tools:layout="@layout/fragment_split_bill" />
+    <fragment
+        android:id="@+id/paparaEduFragment"
+        android:name="com.smtersoyoglu.paparasample.PaparaEduFragment"
+        android:label="fragment_papara_edu"
+        tools:layout="@layout/fragment_papara_edu" />
+    <fragment
+        android:id="@+id/insuranceFragment"
+        android:name="com.smtersoyoglu.paparasample.InsuranceFragment"
+        android:label="fragment_insurance"
+        tools:layout="@layout/fragment_insurance" />
+    <fragment
+        android:id="@+id/cashbackFragment"
+        android:name="com.smtersoyoglu.paparasample.CashbackFragment"
+        android:label="fragment_cashback"
+        tools:layout="@layout/fragment_cashback" />
+    <fragment
+        android:id="@+id/streamerAccountFragment"
+        android:name="com.smtersoyoglu.paparasample.StreamerAccountFragment"
+        android:label="fragment_streamer_account"
+        tools:layout="@layout/fragment_streamer_account" />
+</navigation>
